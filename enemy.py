@@ -10,12 +10,18 @@ from config import *
 
 class Enemy: # pg.sprite.Spriteを継承しない
     """敵を管理するクラス"""
-    def __init__(self):
+    def __init__(self, type=0):
+        enemy_pattern = [
+            ["images/book.png", 50, 50],
+            ["images/fish.png", 140, 140],
+            ["images/red.png", 100, 100],
+        ]
         """敵の初期化"""
         # super().__init__() は不要
         # 敵の形状と色を設定
-        self.image = pg.image.load("images/enemy.png")
-        self.image = pg.transform.scale(self.image, (ENEMY_WIDTH, ENEMY_HEIGHT))
+        self.shurui = type
+        self.image = pg.image.load(enemy_pattern[type][0])
+        self.image = pg.transform.scale(self.image, (enemy_pattern[type][1], enemy_pattern[type][2]))
         # 敵の初期位置と速度を設定
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(0, SCREEN_WIDTH - self.rect.width)

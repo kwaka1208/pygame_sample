@@ -18,7 +18,7 @@ class Bullet:
         """
         # super().__init__() は不要
         # 弾の形状と色を設定
-        self.image = pg.image.load("images/bullet.png")
+        self.image = pg.image.load("images/kasa.png")
         self.image = pg.transform.scale(self.image, (BULLET_WIDTH, BULLET_HEIGHT))
         # 弾の位置と速度を設定
         self.rect = self.image.get_rect()

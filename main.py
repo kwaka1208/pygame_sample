@@ -9,6 +9,7 @@ import sys
 from config import *
 from player import Player
 from enemy import Enemy
+import random as rd
 
 class Game:
     """ゲーム全体を管理するクラス"""
@@ -34,7 +35,7 @@ class Game:
         
         # 最初に複数の敵を生成
         for _ in range(ENEMY_COUNT):
-            self.enemies.append(Enemy())
+            self.enemies.append(Enemy(rd.randint(0, 2)))  # 敵のタイプをランダムに選択
         
         self.enemy_spawn_counter = 0
         self.score = 0
@@ -66,7 +67,7 @@ class Game:
         self.enemy_spawn_counter += 1
         if self.enemy_spawn_counter >= ENEMY_SPAWN_RATE:
             self.enemy_spawn_counter = 0
-            self.enemies.append(Enemy())
+            self.enemies.append(Enemy(rd.randint(0, 2)))
             
         # 当たり判定: 弾と敵
         # ループ中にリストから要素を削除するとインデックスがずれるため、
@@ -92,13 +93,18 @@ class Game:
                 if enemy in self.enemies:
                     self.enemies.remove(enemy)
                     # 敵を倒したら新しい敵を補充する
-                    self.enemies.append(Enemy())
+                    self.enemies.append(Enemy(rd.randint(0, 2)))
 
         # 当たり判定: プレイヤーと敵
         for enemy in self.enemies:
             if self.player.rect.colliderect(enemy.rect):
-                self.playing = False
-                break
+                if enemy.shurui == 0:
+                    self.player.speedup()
+                    #if enemy.shurui == 1:
+                        #self.player.recovery()
+                else:
+                    self.playing = False
+                    break
 
     def events(self):
         """イベント処理（キー入力など）"""
