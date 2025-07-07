@@ -19,7 +19,7 @@ class Player: # pg.sprite.Spriteを継承しない
         self.rect = self.image.get_rect()
         self.rect.centerx = SCREEN_WIDTH // 2
         self.rect.bottom = SCREEN_HEIGHT - 10
-        self.speed_x = 0
+        self.speed_x = PLAYER_SPEED
         self.fRight = True  # 右を向いているかどうかのフラグ
 
     def update(self):
